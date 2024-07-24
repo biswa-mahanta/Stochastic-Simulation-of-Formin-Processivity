@@ -15,7 +15,7 @@ prompt = "enter the FH1 flux (percentage)";                 %user input of the p
 flux = input(prompt);
 
 if flux>67
-    off_rate = 0.0002*(flux-67);        %linear increase in formin dissociation rate when FH1 delivery is used for more than two-third monomers
+    off_rate = 0.0002*(flux-67) + 0.00191;        %linear increase in formin dissociation rate when FH1 delivery is used for more than two-third monomers
 else
     off_rate = 0.00191;                     %basal formin dissociation rate when FH1 delivery is used for less than two-third monomers 
 end
