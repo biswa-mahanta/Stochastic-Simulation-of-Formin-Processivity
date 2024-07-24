@@ -13,10 +13,10 @@ format long g;
 total_filaments = 12000; starting_filaments = 2400;         %number of total and starting number of filaments
 prompt = "enter the FH1 flux (percentage)";                 %user input of the percentage of monomer addition through the FH1-delivery pathway
 flux = input(prompt);
-if flux>65
-    off_rate = 0.00021*flux - 0.012;        %linear increase in formin dissociation rate when FH1 delivery is used for more than two-third monomers
+if flux>66
+    off_rate = 0.0002*(flux-66);        %linear increase in formin dissociation rate when FH1 delivery is used for more than two-third monomers
 else
-    off_rate = 0.00195;                     %basal formin dissociation rate when FH1 delivery is used for less than two-third monomers 
+    off_rate = 0.00191;                     %basal formin dissociation rate when FH1 delivery is used for less than two-third monomers 
 end
 
 colNames = {'5 subunits/s', '15 subunits/s','25 subunits/s','35 subunits/s'};     %column names corresponding to elongation rates used
@@ -53,11 +53,11 @@ for v = 1:4
                 stepcount = stepcount + (time_step*elongation_rate);
             end
             if stepcount < (steplimit - elongation_rate*(t-1))
-                len ((10*(t-1)+i),1) = stepcount;                    %recording the final filament length
-                time ((10*(t-1)+i),1) = stepcount/elongation_rate;
+                len ((starting_filaments+8*(t-1)+i),1) = stepcount;                    %recording the final filament length
+                time ((starting_filaments+8*(t-1)+i),1) = stepcount/elongation_rate;
             else
-                len (10*(t-1)+i,1) = 0;         %filaments that have grown to maximum length are removed
-                time ((10*(t-1)+i),1) = 0;
+                len (starting_filaments+8*(t-1)+i,1) = 0;         %filaments that have grown to maximum length are removed
+                time ((starting_filaments+8*(t-1)+i),1) = 0;
             end
             surviving = surviving -1 ;      %surviving filament counter
         end
@@ -66,7 +66,7 @@ for v = 1:4
     lengths = [lengths, {len}];
     time = nonzeros(time);
     dwelltimes = [dwelltimes, {time}];
-    elongation_rate = 5 + 10*(v);
+    %elongation_rate = 5 + 10*(v);
 end
 
 Run_lengths = array2table(lengths,'VariableNames',colNames);
