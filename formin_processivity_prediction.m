@@ -13,8 +13,9 @@ format long g;
 total_filaments = 12000; starting_filaments = 2400;         %number of total and starting number of filaments
 prompt = "enter the FH1 flux (percentage)";                 %user input of the percentage of monomer addition through the FH1-delivery pathway
 flux = input(prompt);
-if flux>66
-    off_rate = 0.0002*(flux-66);        %linear increase in formin dissociation rate when FH1 delivery is used for more than two-third monomers
+
+if flux>67
+    off_rate = 0.0002*(flux-67);        %linear increase in formin dissociation rate when FH1 delivery is used for more than two-third monomers
 else
     off_rate = 0.00191;                     %basal formin dissociation rate when FH1 delivery is used for less than two-third monomers 
 end
