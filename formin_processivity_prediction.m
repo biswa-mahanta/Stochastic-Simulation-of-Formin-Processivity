@@ -15,9 +15,9 @@ prompt = "enter the FH1 flux (percentage)";                 %user input of the p
 flux = input(prompt);
 
 if flux>67
-    off_rate = 0.0002*(flux-67) + 0.00191;        %linear increase in formin dissociation rate when FH1 delivery is used for more than two-third monomers
+    off_rate = 0.0002*(flux-67) + 0.00391;        %linear increase in formin dissociation rate when FH1 delivery is used for more than two-third monomers
 else
-    off_rate = 0.00191;                     %basal formin dissociation rate when FH1 delivery is used for less than two-third monomers 
+    off_rate = 0.00391;                     %basal formin dissociation rate when FH1 delivery is used for less than two-third monomers 
 end
 
 colNames = {'5 subunits/s', '15 subunits/s','25 subunits/s','35 subunits/s'};     %column names corresponding to elongation rates used
@@ -67,7 +67,7 @@ for v = 1:4
     lengths = [lengths, {len}];
     time = nonzeros(time);
     dwelltimes = [dwelltimes, {time}];
-    %elongation_rate = 5 + 10*(v);
+    elongation_rate = elongation_rate + 10;       %elongation rate is increased 
 end
 
 Run_lengths = array2table(lengths,'VariableNames',colNames);
